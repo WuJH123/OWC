@@ -1,0 +1,2 @@
+case_id,wave_period,wave_amplitude,draft,front_wall_thickness,chamber_width,opening_ratio,quadratic_damping,artificial_damping,result_efficiencyOWC
+598,1.343085615,0.07720893264,0.2,0.05,0.7,0.01146881648,2.473532318,1.10475094,5.14977172937168
