@@ -1,0 +1,35 @@
+{
+  "raw_rows": 26313,
+  "raw_columns": 41,
+  "all_run_status_ok": true,
+  "all_result_parse_ok": true,
+  "selected_missing_total": 0,
+  "duplicate_input_rows_removed": 125,
+  "iqr_upper_fence": 1.2381317546789408,
+  "extreme_target_rows_removed": 1,
+  "efficiency_gt_1_count_raw": 199,
+  "efficiency_gt_1p05_count_raw": 2,
+  "final_rows": 26187,
+  "xgboost_test": {"R2": 0.9839076269969245, "RMSE": 0.029945096491437805, "MAE": 0.018448222323190037},
+  "xgboost_5fold_cv": {"R2_mean": 0.9852734936851422, "R2_sd": 0.0007906046023192908, "RMSE_mean": 0.02854649170506956, "RMSE_sd": 0.0007591681715606864, "MAE_mean": 0.017724674304874954, "MAE_sd": 0.0003009176150135416},
+  "top_shap": [
+    {"feature": "wave_period", "mean_abs_shap": 0.10670462250709534},
+    {"feature": "draft", "mean_abs_shap": 0.07130217552185059},
+    {"feature": "artificial_damping", "mean_abs_shap": 0.06343529373407364},
+    {"feature": "chamber_width", "mean_abs_shap": 0.051688455045223236},
+    {"feature": "opening_ratio", "mean_abs_shap": 0.03508506342768669},
+    {"feature": "wave_amplitude", "mean_abs_shap": 0.01495405938476324},
+    {"feature": "front_wall_thickness", "mean_abs_shap": 0.01099338848143816},
+    {"feature": "quadratic_damping", "mean_abs_shap": 0.010981202125549316}
+  ],
+  "top_ale2": [
+    {"feature_1": "wave_period", "feature_2": "draft", "ale2_rms": 0.09318640192009184},
+    {"feature_1": "wave_period", "feature_2": "chamber_width", "ale2_rms": 0.07441963700917872},
+    {"feature_1": "chamber_width", "feature_2": "opening_ratio", "ale2_rms": 0.03297582336358628},
+    {"feature_1": "wave_amplitude", "feature_2": "opening_ratio", "ale2_rms": 0.02987000964613298},
+    {"feature_1": "opening_ratio", "feature_2": "artificial_damping", "ale2_rms": 0.023122800489626692},
+    {"feature_1": "wave_amplitude", "feature_2": "chamber_width", "ale2_rms": 0.020030755776481775},
+    {"feature_1": "draft", "feature_2": "chamber_width", "ale2_rms": 0.019698625625759365},
+    {"feature_1": "wave_period", "feature_2": "opening_ratio", "ale2_rms": 0.019565611743988947}
+  ]
+}
