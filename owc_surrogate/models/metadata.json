@@ -21,11 +21,11 @@
   "random_seed": 20260731,
   "xgboost_version": "3.1.3",
   "model_format": "XGBoost JSON (.json)",
-  "notes": "The GitHub package contains a compact deployment XGBoost fit. The published 1500-row Topt table was extracted with the full 1600-tree research model; use that CSV as the authoritative Topt result for this analysis.",
+  "notes": "The GitHub package contains a compact deployment XGBoost fit for portable inference. The published 1500-row Topt table was extracted with the full 1600-tree research model; use that CSV as the authoritative Topt result for this analysis.",
   "deployment_model": {
-    "n_estimators": 150, "learning_rate": 0.12, "grow_policy": "lossguide", "max_leaves": 96, "max_depth": 0,
+    "n_estimators": 50, "learning_rate": 0.15, "grow_policy": "lossguide", "max_leaves": 64, "max_depth": 0,
     "min_child_weight": 3, "subsample": 0.9, "colsample_bytree": 0.9, "reg_lambda": 2,
-    "validation": {"R2": 0.98006, "RMSE": 0.03333, "MAE": 0.02204},
+    "validation": {"R2": 0.9677977522565151, "RMSE": 0.04236027443261577, "MAE": 0.02952017674977807},
     "purpose": "Compact portable deployment model stored in GitHub; trained on the same cleaned data and feature contract.",
     "artifact": "gzip-compressed XGBoost JSON, base64-split into text chunks for portable GitHub storage"
   },
