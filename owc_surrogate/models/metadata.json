@@ -1,0 +1,33 @@
+{
+  "model_name": "OWC XGBoost efficiency surrogate",
+  "target": "result_efficiencyOWC",
+  "feature_order": ["wave_period","wave_amplitude","draft","front_wall_thickness","chamber_width","opening_ratio","quadratic_damping","artificial_damping"],
+  "feature_domain": {
+    "wave_period": {"min": 0.9, "max": 2.5, "median": 1.7},
+    "wave_amplitude": {"min": 0.015, "max": 0.09999868027, "median": 0.04},
+    "draft": {"min": 0.125, "max": 0.6, "median": 0.2216365186},
+    "front_wall_thickness": {"min": 0.01, "max": 0.1, "median": 0.05292559832},
+    "chamber_width": {"min": 0.2, "max": 1.0, "median": 0.6026876179},
+    "opening_ratio": {"min": 0.0029, "max": 0.02, "median": 0.007073634735},
+    "quadratic_damping": {"min": 0.625, "max": 2.875, "median": 1.75},
+    "artificial_damping": {"min": 0.0, "max": 1500.0, "median": 125.0}
+  },
+  "validation": {"R2": 0.9839076269969245, "RMSE": 0.029945096491437805, "MAE": 0.018448222323190037},
+  "training_rows": 26187,
+  "raw_rows": 26313,
+  "duplicate_input_rows_removed": 125,
+  "target_iqr_upper_fence": 1.2381317546789408,
+  "extreme_target_rows_removed": 1,
+  "random_seed": 20260731,
+  "xgboost_version": "3.1.3",
+  "model_format": "XGBoost JSON (.json)",
+  "notes": "The GitHub package contains a compact deployment XGBoost fit. The published 1500-row Topt table was extracted with the full 1600-tree research model; use that CSV as the authoritative Topt result for this analysis.",
+  "deployment_model": {
+    "n_estimators": 150, "learning_rate": 0.12, "grow_policy": "lossguide", "max_leaves": 96, "max_depth": 0,
+    "min_child_weight": 3, "subsample": 0.9, "colsample_bytree": 0.9, "reg_lambda": 2,
+    "validation": {"R2": 0.98006, "RMSE": 0.03333, "MAE": 0.02204},
+    "purpose": "Compact portable deployment model stored in GitHub; trained on the same cleaned data and feature contract.",
+    "artifact": "gzip-compressed XGBoost JSON, base64-split into text chunks for portable GitHub storage"
+  },
+  "research_model_validation": {"R2": 0.9839076269969245, "RMSE": 0.029945096491437805, "MAE": 0.018448222323190037}
+}
