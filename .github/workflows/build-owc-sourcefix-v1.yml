@@ -1,0 +1,65 @@
+name: Build OWC sourcefix v1 EXE
+
+on:
+  push:
+    branches:
+      - build/owc-sourcefix-v1-20260919
+    paths:
+      - "ci/owc_sourcefix_v1.tar.gz.b64"
+      - ".github/workflows/build-owc-sourcefix-v1.yml"
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up MSYS2 / MinGW-w64 Fortran
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-gcc-fortran
+            mingw-w64-x86_64-binutils
+
+      - name: Decode source payload
+        shell: msys2 {0}
+        run: |
+          mkdir -p build_source
+          base64 -d ci/owc_sourcefix_v1.tar.gz.b64 > build_source/owc_sourcefix_v1.tar.gz
+          cd build_source
+          tar -xzf owc_sourcefix_v1.tar.gz
+          sha256sum owc_sourcefix_v1.tar.gz
+
+      - name: Build Windows x64 EXE
+        shell: msys2 {0}
+        run: |
+          set -eux
+          cd build_source/src
+          gfortran --version
+          gfortran \
+            -std=legacy \
+            -ffixed-line-length-none \
+            -O2 \
+            -static \
+            -static-libgcc \
+            -static-libgfortran \
+            Var_md.f Wave.f EleNode0.for assemb.f Timer.f HOBMP.f \
+            -o ../../OWC-irregular-sourcefix-v1.exe
+          cd ../..
+          ls -lh OWC-irregular-sourcefix-v1.exe
+          sha256sum OWC-irregular-sourcefix-v1.exe | tee OWC-irregular-sourcefix-v1.exe.sha256
+          objdump -p OWC-irregular-sourcefix-v1.exe | sed -n '/DLL Name/p' | tee OWC-irregular-sourcefix-v1.dependencies.txt
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OWC-irregular-sourcefix-v1-windows-x64
+          path: |
+            OWC-irregular-sourcefix-v1.exe
+            OWC-irregular-sourcefix-v1.exe.sha256
+            OWC-irregular-sourcefix-v1.dependencies.txt
+          if-no-files-found: error
+          retention-days: 7
