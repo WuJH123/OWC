@@ -30,9 +30,9 @@ jobs:
           mkdir -p build_source
           cat ci/b64/part*.txt | tr -d '\r\n' | base64 -d > build_source/owc_sourcefix_v1.tar.gz
           cd build_source
-          echo "Expected source archive SHA256: 71bb86a84e00777e846bf292f78f8284708f61745a1a34e5824c320e089780cb"
+          echo "Expected source archive SHA256: 54618f5e4e8e1b554349cf4edf6383c3ed3fd956261489e23fcace757adda0a7"
           sha256sum owc_sourcefix_v1.tar.gz
-          test "$(sha256sum owc_sourcefix_v1.tar.gz | awk '{print $1}')" = "71bb86a84e00777e846bf292f78f8284708f61745a1a34e5824c320e089780cb"
+          test "$(sha256sum owc_sourcefix_v1.tar.gz | awk '{print $1}')" = "54618f5e4e8e1b554349cf4edf6383c3ed3fd956261489e23fcace757adda0a7"
           tar -xzf owc_sourcefix_v1.tar.gz
           ls -l Var_md.f Wave.f EleNode0.for assemb.f Timer.f HOBMP.f
 
