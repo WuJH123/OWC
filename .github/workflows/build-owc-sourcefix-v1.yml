@@ -19,7 +19,7 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           msystem: MINGW64
-          update: true
+          update: false
           install: >-
             mingw-w64-x86_64-gcc-fortran
             mingw-w64-x86_64-binutils
@@ -28,16 +28,19 @@ jobs:
         shell: msys2 {0}
         run: |
           mkdir -p build_source
-          base64 -d ci/owc_sourcefix_v1.tar.gz.b64 > build_source/owc_sourcefix_v1.tar.gz
+          cat ci/b64/part*.txt | tr -d '\r\n' | base64 -d > build_source/owc_sourcefix_v1.tar.gz
           cd build_source
-          tar -xzf owc_sourcefix_v1.tar.gz
+          echo "Expected source archive SHA256: 71bb86a84e00777e846bf292f78f8284708f61745a1a34e5824c320e089780cb"
           sha256sum owc_sourcefix_v1.tar.gz
+          test "$(sha256sum owc_sourcefix_v1.tar.gz | awk '{print $1}')" = "71bb86a84e00777e846bf292f78f8284708f61745a1a34e5824c320e089780cb"
+          tar -xzf owc_sourcefix_v1.tar.gz
+          ls -l Var_md.f Wave.f EleNode0.for assemb.f Timer.f HOBMP.f
 
       - name: Build Windows x64 EXE
         shell: msys2 {0}
         run: |
           set -eux
-          cd build_source/src
+          cd build_source
           gfortran --version
           gfortran \
             -std=legacy \
@@ -47,8 +50,8 @@ jobs:
             -static-libgcc \
             -static-libgfortran \
             Var_md.f Wave.f EleNode0.for assemb.f Timer.f HOBMP.f \
-            -o ../../OWC-irregular-sourcefix-v1.exe
-          cd ../..
+            -o ../OWC-irregular-sourcefix-v1.exe
+          cd ..
           ls -lh OWC-irregular-sourcefix-v1.exe
           sha256sum OWC-irregular-sourcefix-v1.exe | tee OWC-irregular-sourcefix-v1.exe.sha256
           objdump -p OWC-irregular-sourcefix-v1.exe | sed -n '/DLL Name/p' | tee OWC-irregular-sourcefix-v1.dependencies.txt
