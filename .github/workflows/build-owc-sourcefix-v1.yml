@@ -5,7 +5,7 @@ on:
     branches:
       - build/owc-sourcefix-v1-20260919
     paths:
-      - "ci/owc_sourcefix_v1.tar.gz.b64"
+      - "ci/**"
       - ".github/workflows/build-owc-sourcefix-v1.yml"
 
 jobs:
